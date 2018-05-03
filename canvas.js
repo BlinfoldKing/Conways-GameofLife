@@ -17,7 +17,6 @@ function setup() {
     createCanvas(Xsize, Ysize);
     background('#333');
 
-    //Grid = new Array();
     for (let i = 0; i < Number(floor(Xsize / 10)) + 1; i++) {
         Grid[i] = [];
         for (let j = 0; j < Number(floor(Ysize / 10)) + 1; j++) {
@@ -38,7 +37,7 @@ function setup() {
             for (let j = 0; j < Number(floor(Ysize / 10)) + 1; j++) {
                 Grid[i][j] = false;
             }
-        } 
+        }
     })
 }
 
@@ -96,8 +95,6 @@ function countNeighbour(x, y) {
 
 function draw() {
 
-    //console.log(simulationRun);
-    //console.log(liveCount)
 
     if (simulationRun) {
         console.log('simulation is running')
@@ -110,20 +107,20 @@ function draw() {
                 //console.log(n)
                 if (n == 3 && !Grid[i][j]) {
                     newGrid[i][j] = true;
-                    liveCount++;
+                   
                 } else if (n < 2 || n > 3) {
                     newGrid[i][j] = false;
                 } else {
                     newGrid[i][j] = Grid[i][j];
                 }
+                if (newGrid[i][j]) liveCount++;
             }
         }
-        //console.log(newGrid)
         Grid = newGrid;
     }
 
-    //if (liveCount == 0) simulationRun = false;
-
+    if (liveCount < 0) 
+        simulationRun = false;
 
     stroke(100);
     for (let i = 0; i < Xsize; i += 10) {
@@ -141,9 +138,8 @@ function draw() {
 }
 
 function mousePressed() {
-    //console.log(mouseX, mouseY);
     let pos = screenToGrid(mouseX, mouseY)
-    if (pos[0] < Xsize && pos[1] < Ysize){
+    if (pos[0] < Xsize && pos[1] < Ysize) {
         Grid[pos[0]][pos[1]] = !Grid[pos[0]][pos[1]];
     }
     if (Grid[pos[0]][pos[1]]) {
