@@ -1,5 +1,5 @@
-const Xsize = 200;
-const Ysize = 200;
+const Xsize = 400;
+const Ysize = 400;
 
 function screenToGrid(screenX, screenY) {
 
@@ -28,7 +28,7 @@ function setup() {
     console.log(Grid)
 
     let startButton = createButton('START');
-    startButton.mousePressed(() => simulationRun = true);
+    startButton.mouseClicked(() => simulationRun = true);
     let stopButton = createButton('STOP');
     stopButton.mousePressed(() => simulationRun = false);
     let resetButton = createButton('RESET');
@@ -122,7 +122,7 @@ function draw() {
         Grid = newGrid;
     }
 
-    if (liveCount == 0) simulationRun = false;
+    //if (liveCount == 0) simulationRun = false;
 
 
     stroke(100);
