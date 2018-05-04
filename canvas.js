@@ -1,5 +1,5 @@
-const Xsize = 400;
-const Ysize = 400;
+const Xsize = 640;
+const Ysize = 480;
 
 function screenToGrid(screenX, screenY) {
 
@@ -17,19 +17,15 @@ function setup() {
     createCanvas(Xsize, Ysize);
     background('#333');
 
-    for (let i = 0; i < Number(floor(Xsize / 10)) + 1; i++) {
+    for (let i = 0; i < Number(floor(Xsize / 10)); i++) {
         Grid[i] = [];
-        for (let j = 0; j < Number(floor(Ysize / 10)) + 1; j++) {
+        for (let j = 0; j < Number(floor(Ysize / 10)); j++) {
             Grid[i][j] = false;
         }
     }
 
-    console.log(Grid)
-
-    let startButton = createButton('START');
-    startButton.mouseClicked(() => simulationRun = true);
-    let stopButton = createButton('STOP');
-    stopButton.mousePressed(() => simulationRun = false);
+    let startButton = createButton('Toogle Simulation');
+    startButton.mouseClicked(() => simulationRun = !simulationRun);
     let resetButton = createButton('RESET');
     resetButton.mousePressed(() => {
         for (let i = 0; i < Number(floor(Xsize / 10)) + 1; i++) {
@@ -38,6 +34,7 @@ function setup() {
                 Grid[i][j] = false;
             }
         }
+        simulationRun = false;
     })
 }
 
@@ -72,11 +69,11 @@ function countNeighbour(x, y) {
     }
 
 
-    if (x + 1 < floor(Xsize / 10)) {
+    if (x + 1 < floor(Xsize / 10) - 1) {
         if (Grid[x + 1][y])
             sum += 1;
 
-        if (y + 1 < floor(Ysize / 10)) {
+        if (y + 1 < floor(Ysize / 10) - 1) {
             if (Grid[x + 1][y + 1])
                 sum += 1;
         }
@@ -97,14 +94,12 @@ function draw() {
 
 
     if (simulationRun) {
-        console.log('simulation is running')
         liveCount = 0;
         let newGrid = [];
         for (let i = 0; i < Grid.length; i++) {
             newGrid[i] = [];
             for (let j = 0; j < Grid[i].length; j++) {
                 let n = countNeighbour(i, j);
-                //console.log(n)
                 if (n == 3 && !Grid[i][j]) {
                     newGrid[i][j] = true;
                    
@@ -135,16 +130,17 @@ function draw() {
             pop()
         }
     }
+    
 }
 
 function mousePressed() {
     let pos = screenToGrid(mouseX, mouseY)
-    if (pos[0] < Xsize && pos[1] < Ysize) {
+    if (pos[0] < floor(Xsize / 10) - 1 && floor(Ysize / 10) - 1) {
         Grid[pos[0]][pos[1]] = !Grid[pos[0]][pos[1]];
-    }
-    if (Grid[pos[0]][pos[1]]) {
-        liveCount++;
-    } else {
-        liveCount--;
+        if (Grid[pos[0]][pos[1]]) {
+            liveCount++;
+        } else {
+            liveCount--;
+        }
     }
 }
