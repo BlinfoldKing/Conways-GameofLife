@@ -17,9 +17,9 @@ function setup() {
     createCanvas(Xsize, Ysize);
     background('#333');
 
-    for (let i = 0; i < Number(floor(Xsize / 10)); i++) {
+    for (let i = 0; i < floor(Xsize / 10); i++) {
         Grid[i] = [];
-        for (let j = 0; j < Number(floor(Ysize / 10)); j++) {
+        for (let j = 0; j < floor(Ysize / 10); j++) {
             Grid[i][j] = false;
         }
     }
@@ -28,9 +28,9 @@ function setup() {
     startButton.mouseClicked(() => simulationRun = !simulationRun);
     let resetButton = createButton('RESET');
     resetButton.mousePressed(() => {
-        for (let i = 0; i < Number(floor(Xsize / 10)) + 1; i++) {
+        for (let i = 0; i < floor(Xsize / 10); i++) {
             Grid[i] = [];
-            for (let j = 0; j < Number(floor(Ysize / 10)) + 1; j++) {
+            for (let j = 0; j < floor(Ysize / 10); j++) {
                 Grid[i][j] = false;
             }
         }
